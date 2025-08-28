@@ -1,0 +1,4 @@
+token = "some_super_secret_token"
+appname = "blue"
+port = 9876
+logging = true

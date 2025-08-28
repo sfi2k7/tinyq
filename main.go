@@ -1,10 +1,30 @@
-package main
+package tinyq
 
-import "github.com/sfi2k7/tinyq"
+const (
+	Stringreverse = iota + 1
+	StringBase64
+	StringHex
+	StringShiftNumbers
+	StringUpperToLower
+)
 
-func main() {
-	q := tinyq.NewTinyQ(tinyq.Options{Appname: "smsdos", Port: 9876})
-	defer q.Close()
-
-	q.Serve()
+type TinyQ interface {
+	Push(item string) error
+	Pop(channel string, count ...int) ([]string, error)
+	ListAllKeys(channel string) ([]string, error)
+	RemoveItem(item string) error
+	ListChannels() (map[string]int, error)
+	PauseChannel(channel string) error
+	IsChannelPaused(channel string) (bool, error)
+	UnpauseChannel(channel string) error
+	ClearChannel(channel string) error
+	DeleteChannel(channel string) error
+	Count(channel string) (int, error)
+	Stats(appname string) ([]*ChannelStats, error)
+	Close() error
+	Open() error
+	Get(bucket, key string) (string, error)
+	Set(bucket, key, value string) error
+	Delete(bucket, key string) error
+	Inc(bucket, key string) error
 }
